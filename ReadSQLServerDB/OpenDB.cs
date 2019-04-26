@@ -39,7 +39,7 @@ namespace ReadSQLServerDB
                 foreach (DataRow column in dataSet.Tables[0].Rows)
                 {
                     table.PKName = column["CONSTRAINT_NAME"].ToString();
-                    table.IDColumn.ColumnName = column["COLUMN_NAME"].ToString().ToUpper();
+                    table.IDColumn.ColumnName = column["COLUMN_NAME"].ToString();
                 }
                 sqlDataAdapter = new SqlDataAdapter("SELECT * FROM " + sqlConnection.Database + ".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table.TableName + "'", sqlConnection);
                 dataSet = new DataSet();
@@ -48,7 +48,7 @@ namespace ReadSQLServerDB
                 sqlDataAdapter.SelectCommand.Connection.Close();
                 foreach (DataRow column in dataSet.Tables[0].Rows)
                 {
-                    if (column["COLUMN_NAME"].ToString().ToUpper() == table.IDColumn.ColumnName)
+                    if (column["COLUMN_NAME"].ToString() == table.IDColumn.ColumnName)
                     {
                         table.IDColumn.SqlDataType = column["DATA_TYPE"].ToString().ToUpper();
                         table.IDColumn.FlagNull = column["IS_NULLABLE"].ToString().ToUpper() == "YES";
